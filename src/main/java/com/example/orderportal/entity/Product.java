@@ -14,6 +14,7 @@ public class Product extends BaseEntity {
     private String description;
     private double price;
     private int stock;
-
+//    @OneToMany
+//    private List<PriceHistory> priceHistories;
 
 }
