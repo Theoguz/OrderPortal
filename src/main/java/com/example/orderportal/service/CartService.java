@@ -1,6 +1,7 @@
 package com.example.orderportal.service;
 
 import com.example.orderportal.entity.Cart;
+import com.example.orderportal.entity.Customer;
 import com.example.orderportal.entity.Product;
 import com.example.orderportal.repository.CartRepository;
 import com.example.orderportal.repository.ProductRepository;
@@ -15,10 +16,13 @@ public class CartService {
 
     private final ProductService productService;
 
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, ProductService productService) {
+    private final CustomerService customerService;
+
+    public CartService(CartRepository cartRepository, ProductRepository productRepository, ProductService productService, CustomerService customerService) {
         this.cartRepository = cartRepository;
         this.productRepository = productRepository;
         this.productService = productService;
+        this.customerService = customerService;
     }
 
     public Cart GetCart(Long id) {
@@ -40,31 +44,58 @@ public class CartService {
         return cart;
     }
 
-    public void AddProductToCart(Cart cart, Product product) {
-        if (cart != null && product != null && product.getStock() > 0 && productService.GetProduct(product.getName()) != null) {
-            int quantity = cart.getMiktar();
-            if (quantity <= product.getStock()) {
-                cart.setMiktar((quantity));
-                cart.setCartTotal((int) (cart.getCartTotal() + product.getPrice() * quantity));
-                product.setStock(product.getStock() - quantity);
-                Product existingProduct = productService.GetProduct(product.getName());
-                if (existingProduct != null && existingProduct.getStock() > 0 && existingProduct.getStock() >= quantity) {
-                    existingProduct.setStock(existingProduct.getStock() - quantity);
-                    productService.UpdateProduct(product.getName(), existingProduct);
-                    productRepository.save(existingProduct);
+    public void AddProductToCart(Cart cart, Product product, Customer customer) {
+
+        if (cart != null && product != null && customer != null) {
+            // Ürün var mı kontrol et
+            Product existingProduct = productService.GetProduct(product.getName());
+
+            if (existingProduct != null) {
+                // Stok kontrolü yap
+                int quantity = cart.getMiktar();
+                if (existingProduct.getStock() >= quantity && existingProduct.getPrice()==product.getPrice()) {
+                    // Müşteriyi kontrol et
+                    Customer existingCustomer = customerService.getCustomerByName(customer.getName());
+
+                    if (existingCustomer != null) {
+                        // Müşterinin sepeti var mı kontrol et
+                        if (existingCustomer.getCart() == null) {
+                            // Müşterinin sepeti yoksa yeni bir sepet oluştur
+                            Cart newCart = new Cart();
+                            existingCustomer.setCart(newCart);
+                        }
+
+                        // Sepeti al
+                        Cart customerCart = existingCustomer.getCart();
+
+                        // Sepetteki miktarı güncelle
+                        customerCart.setMiktar(quantity+customerCart.getMiktar());
+
+                        // Sepet toplamını güncelle
+                        customerCart.setCartTotal((int) (customerCart.getCartTotal() + product.getPrice() * quantity));
+
+                        // Ürün stokunu güncelle
+                        existingProduct.setStock(existingProduct.getStock() - quantity);
+                        productRepository.save(existingProduct);
+
+                        // Sepeti ve müşteriyi güncelle
+                        cartRepository.save(customerCart);
+                        customerService.updateCustomer(existingCustomer);
+                    } else {
+                        System.out.println("Müşteri bulunamadı");
+                    }
                 } else {
-                    System.out.println("Stoktaki ürün azdır " + existingProduct.getStock());
+                    System.out.println("Stokta yeterli ürün yok veya fiyat değişti");
                 }
-
-                cartRepository.save(cart);
-
             } else {
-                System.out.println("Stokta yeterli ürün yok");
+                System.out.println("Ürün bulunamadı");
             }
         } else {
-            System.out.println("Ürün bulunamadı");
+            System.out.println("Sepet, ürün veya müşteri bulunamadı");
         }
     }
+
+
 
     public void RemoveProductFromCart(Cart cart, Product product) {
 
