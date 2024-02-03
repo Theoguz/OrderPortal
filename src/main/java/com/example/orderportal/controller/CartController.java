@@ -18,7 +18,7 @@ public class CartController {
     @PostMapping("/add")
     public void addProductToCart(@RequestBody AddToCartRequest request) {
         try {
-            cartService.AddProductToCart(request.getCart(), request.getProduct());
+            cartService.AddProductToCart(request.getCart(), request.getProduct(), request.getCustomer());
         } catch (Exception e) {
             e.printStackTrace();
         }
