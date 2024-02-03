@@ -23,4 +23,25 @@ public class CartController {
             e.printStackTrace();
         }
     }
+
+    @GetMapping("/get")
+    public Cart getCart(@RequestParam Long id) {
+        try {
+            return cartService.GetCart(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+
+    @PostMapping("/update")
+    public Cart updateCart() {
+        try {
+            return cartService.UpdateCart();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
