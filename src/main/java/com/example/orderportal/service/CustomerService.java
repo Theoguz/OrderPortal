@@ -23,6 +23,14 @@ public class CustomerService {
         return customerRepository.findAll();
     }
 
+    public Customer getCustomerByName(String name) {
+        return customerRepository.findByName(name);
+    }
+
+    public void updateCustomer(Customer existingCustomer) {
+        customerRepository.save(existingCustomer);
+    }
+
 //    public Customer GetCustomer(String customerId) {
 //        return customerRepository.findById(Long.parseLong(customerId)).orElse(null);
 //    }
