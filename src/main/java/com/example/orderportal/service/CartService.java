@@ -47,29 +47,31 @@ public class CartService {
     public void AddProductToCart(Cart cart, Product product, Customer customer) {
 
         if (cart != null && product != null && customer != null) {
-            // Ürün var mı kontrol et
-            Product existingProduct = productService.GetProduct(product.getName());
 
-            if (existingProduct != null) {
-                // Stok kontrolü yap
-                int quantity = cart.getMiktar();
-                if (existingProduct.getStock() >= quantity && existingProduct.getPrice()==product.getPrice()) {
-                    // Müşteriyi kontrol et
-                    Customer existingCustomer = customerService.getCustomerByName(customer.getName());
+            // Müşteri var mı kontrol et
+            Customer existingCustomer = customerService.getCustomerByName(customer.getName());
 
-                    if (existingCustomer != null) {
-                        // Müşterinin sepeti var mı kontrol et
-                        if (existingCustomer.getCart() == null) {
-                            // Müşterinin sepeti yoksa yeni bir sepet oluştur
-                            Cart newCart = new Cart();
-                            existingCustomer.setCart(newCart);
-                        }
+            if (existingCustomer != null) {
+                // Müşterinin sepeti var mı kontrol et
+                if (existingCustomer.getCart() == null) {
+                    // Müşterinin sepeti yoksa yeni bir sepet oluştur
+                    Cart newCart = new Cart();
+                    existingCustomer.setCart(newCart);
+                }
+
+                // Ürün var mı kontrol et ve fiyat kontrolü yap
+                Product existingProduct = productService.GetProduct(product.getName());
+
+                if (existingProduct != null && existingProduct.getPrice() == product.getPrice()) {
+                    // Stok kontrolü yap
+                    int quantity = cart.getMiktar();
+                    if (existingProduct.getStock() >= quantity ) {
 
                         // Sepeti al
                         Cart customerCart = existingCustomer.getCart();
 
                         // Sepetteki miktarı güncelle
-                        customerCart.setMiktar(quantity+customerCart.getMiktar());
+                        customerCart.setMiktar(quantity + customerCart.getMiktar());
 
                         // Sepet toplamını güncelle
                         customerCart.setCartTotal((int) (customerCart.getCartTotal() + product.getPrice() * quantity));
@@ -82,19 +84,18 @@ public class CartService {
                         cartRepository.save(customerCart);
                         customerService.updateCustomer(existingCustomer);
                     } else {
-                        System.out.println("Müşteri bulunamadı");
+                        System.out.println("Stok yetersiz");
                     }
                 } else {
-                    System.out.println("Stokta yeterli ürün yok veya fiyat değişti");
+                    System.out.println("Ürün Bulunamadı yok veya girdiğiniz fiyatla aynı değil");
                 }
             } else {
-                System.out.println("Ürün bulunamadı");
+                System.out.println("Müşteri bulunamadı");
             }
         } else {
-            System.out.println("Sepet, ürün veya müşteri bulunamadı");
+            System.out.println("Sepet, ürün veya müşteri eksik");
         }
     }
-
 
 
     public void RemoveProductFromCart(Cart cart, Product product) {
