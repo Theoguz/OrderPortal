@@ -15,16 +15,6 @@ public class CartController {
         this.cartService = cartService;
     }
 
-//    @PostMapping("/add")
-//    public Cart addCart(@RequestBody String name) {
-//        try {
-//            return cartService.AddProductToCart(name);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-//    }
-
     @PostMapping("/add")
     public void addProductToCart(@RequestBody AddToCartRequest request) {
         try {
