@@ -14,11 +14,14 @@ import lombok.NoArgsConstructor;
 @Table(name = "order_table")
 public class Order extends BaseEntity{
 
-    @GeneratedValue(strategy= GenerationType.SEQUENCE)
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private String orderCode;
-    private String orderDate;
-    private String orderStatus;
-    private String orderTotal;
+    private int orderTotal;
+    private double totalPrice;
+
+    @ManyToOne
+    private Customer customer;
+
 
 
 }
