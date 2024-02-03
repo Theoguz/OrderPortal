@@ -1,6 +1,7 @@
 package com.example.orderportal.controller;
 
 import com.example.orderportal.entity.Cart;
+import com.example.orderportal.entity.Customer;
 import com.example.orderportal.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,6 +17,7 @@ public class AddToCartRequest {
 
     private Cart cart;
     private Product product;
+    private Customer customer;
 
 
 }
