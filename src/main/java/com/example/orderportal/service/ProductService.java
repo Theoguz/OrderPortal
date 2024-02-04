@@ -1,7 +1,7 @@
 package com.example.orderportal.service;
 
-import com.example.orderportal.entity.Cart;
 import com.example.orderportal.entity.Product;
+import com.example.orderportal.entity.extra.PriceHistory;
 import com.example.orderportal.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
@@ -33,6 +33,10 @@ public class ProductService {
 
     public void UpdateProduct(String name, Product product) {
         Product product1 = productRepository.findByName(name).get();
+        PriceHistory newPriceHistory = new PriceHistory();
+        newPriceHistory.setPrice(product.getPrice());
+        newPriceHistory.setProduct(product1);
+        product1.getPriceHistory().add(newPriceHistory);
         product1.setName(product.getName());
         product1.setDescription(product.getDescription());
         product1.setPrice(product.getPrice());
@@ -45,13 +49,5 @@ public class ProductService {
         productRepository.deleteById(id);
 
     }
-
-    //Can be Fixed son 2 fonksiyon//
-    public void AddProductToCart(Cart cart, Product product) {
-    }
-
-    public void RemoveProductFromCart(Cart cart, Product product) {
-    }
-
 
 }
