@@ -12,15 +12,12 @@ public class CartService {
 
     private final CartRepository cartRepository;
 
-    private final ProductRepository productRepository;
-
     private final ProductService productService;
 
     private final CustomerService customerService;
 
-    public CartService(CartRepository cartRepository, ProductRepository productRepository, ProductService productService, CustomerService customerService) {
+    public CartService(CartRepository cartRepository, ProductService productService, CustomerService customerService) {
         this.cartRepository = cartRepository;
-        this.productRepository = productRepository;
         this.productService = productService;
         this.customerService = customerService;
     }
@@ -30,10 +27,6 @@ public class CartService {
 
     }
 
-    public Cart UpdateCart() {
-        Cart cart = cartRepository.findById(1L).orElse(null);
-        return cart;
-    }
 
     public Cart EmptyCart() {
         Cart cart = cartRepository.findById(1L).orElse(null);
@@ -64,7 +57,7 @@ public class CartService {
                 if (existingProduct != null && existingProduct.getPrice() == product.getPrice()) {
                     // Stok kontrolü yap
                     int quantity = cart.getMiktar();
-                    if (existingProduct.getStock() >= quantity ) {
+                    if (existingProduct.getStock() >= quantity) {
 
                         // Sepeti al
                         Cart customerCart = existingCustomer.getCart();
@@ -77,11 +70,18 @@ public class CartService {
 
                         // Ürün stokunu güncelle
                         existingProduct.setStock(existingProduct.getStock() - quantity);
-                        productRepository.save(existingProduct);
 
+                        customerCart.setProductName(product.getName());
+
+                        product.setName(product.getName());
+                        product.setDescription(product.getDescription());
+                        product.setPrice(product.getPrice());
+                        product.setStock(product.getStock());
                         // Sepeti ve müşteriyi güncelle
                         cartRepository.save(customerCart);
                         customerService.updateCustomer(existingCustomer);
+
+
                     } else {
                         System.out.println("Stok yetersiz");
                     }
@@ -94,11 +94,5 @@ public class CartService {
         } else {
             System.out.println("Sepet, ürün veya müşteri eksik");
         }
-    }
-
-
-    public void removeProductFromCart(Cart cart, Product product, Customer customer, int quantity) {
-
-
     }
 }
