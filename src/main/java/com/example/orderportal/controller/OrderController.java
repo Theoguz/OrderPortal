@@ -1,5 +1,6 @@
 package com.example.orderportal.controller;
 
+import com.example.orderportal.service.CustomerService;
 import com.example.orderportal.service.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -9,9 +10,11 @@ import org.springframework.web.bind.annotation.*;
 public class OrderController {
 
     private final OrderService orderService;
+    private final CustomerService customerService;
 
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, CustomerService customerService) {
         this.orderService = orderService;
+        this.customerService = customerService;
     }
 
     @PostMapping("/place/{id}")
@@ -27,7 +30,7 @@ public class OrderController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllOrdersForCustomer() {
         try {
-            return ResponseEntity.ok(orderService.GetAllOrdersForCustomer());
+            return ResponseEntity.ok(orderService.AllOrders());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Siparişler alınamadı");
         }
@@ -41,5 +44,16 @@ public class OrderController {
             return ResponseEntity.badRequest().body("Sipariş alınamadı");
         }
     }
+
+    @GetMapping("/getCustomer/{name}")
+    public ResponseEntity<?> getCustomerByName(@PathVariable String name) {
+        try {
+            return ResponseEntity.ok(orderService.getAllOrdersForCustomer(customerService.getCustomerByName(name)));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Müşteri bulunamadı");
+        }
+    }
+
+
 
 }
