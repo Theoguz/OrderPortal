@@ -32,7 +32,6 @@ public class CartService {
 
     public Cart UpdateCart() {
         Cart cart = cartRepository.findById(1L).orElse(null);
-        cartRepository.save(cart);
         return cart;
     }
 
@@ -98,34 +97,8 @@ public class CartService {
     }
 
 
-    public void RemoveProductFromCart(Cart cart, Product product) {
+    public void removeProductFromCart(Cart cart, Product product, Customer customer, int quantity) {
+
 
     }
 }
-
-//    public Cart addProductToCart(String name, int miktar) {
-//        try {
-//            if (cartRepository.findById(1L).isEmpty()) {
-//                Cart cart = new Cart();
-//                cartRepository.save(cart);
-//            }
-//        } catch (Exception e) {
-//            System.out.println("Sepet bulunamadı");
-//        }
-//        Cart cart = cartRepository.findById(1L).orElse(null);
-//        if (productService.GetProduct(name) == null) {
-//            System.out.println("Ürün bulunamadı");
-//        }
-//        Product product = productService.GetProduct(name);
-//        if (miktar <= product.getStock()) {
-//            cart.setMiktar(cart.getMiktar() + miktar);
-//            product.setStock(product.getStock() - miktar);
-//            cart.setCartTotal((int) (cart.getCartTotal() + product.getPrice() * miktar));
-//            productRepository.save(product);
-//            cartRepository.save(cart);
-//        } else {
-//            System.out.println("Stokta yeterli ürün yok");
-//        }
-//        return cart;
-//
-//    }
