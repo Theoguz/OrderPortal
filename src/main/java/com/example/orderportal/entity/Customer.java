@@ -1,6 +1,7 @@
 package com.example.orderportal.entity;
 
-import com.example.orderportal.entity.baseentity.BaseEntity;
+import com.example.orderportal.entity.base.BaseEntity;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ public class Customer extends BaseEntity {
     private Cart cart;
 
 
-    @OneToMany
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL,orphanRemoval = true)
+    @JsonIgnoreProperties("customer")
     private List<Order> order;
 }
