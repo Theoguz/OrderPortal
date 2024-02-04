@@ -33,4 +33,13 @@ public class OrderController {
         }
     }
 
+    @GetMapping("/get/{orderCode}")
+    public ResponseEntity<?> getOrderForCode(@PathVariable String orderCode) {
+        try {
+            return ResponseEntity.ok(orderService.GetOrderForCode(orderCode));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Sipariş alınamadı");
+        }
+    }
+
 }
