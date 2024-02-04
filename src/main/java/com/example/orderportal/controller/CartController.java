@@ -1,7 +1,6 @@
 package com.example.orderportal.controller;
 
 import com.example.orderportal.entity.Cart;
-import com.example.orderportal.entity.Product;
 import com.example.orderportal.service.CartService;
 import org.springframework.web.bind.annotation.*;
 
