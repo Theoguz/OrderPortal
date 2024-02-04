@@ -21,12 +21,14 @@ public class CartController {
     }
 
     @PostMapping("/add")
-    public void addProductToCart(@RequestBody AddToCartRequest request) {
+    public ResponseEntity<?> addProductToCart(@RequestBody AddToCartRequest request) {
         try {
             cartService.AddProductToCart(request.getCart(), request.getProduct(), request.getCustomer());
+             return ResponseEntity.ok("Product added to cart");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return ResponseEntity.status(500).body("Internal Server Error");
     }
 
     @GetMapping("/get")
@@ -36,7 +38,6 @@ public class CartController {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-
         }
     }
 
