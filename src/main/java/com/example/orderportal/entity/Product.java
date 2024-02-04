@@ -1,5 +1,6 @@
 package com.example.orderportal.entity;
 
+import com.example.orderportal.entity.baseentity.BaseEntity;
 import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
