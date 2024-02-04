@@ -1,4 +1,4 @@
-package com.example.orderportal.controller;
+package com.example.orderportal.entity.extra;
 
 import com.example.orderportal.entity.Cart;
 import com.example.orderportal.entity.Customer;
