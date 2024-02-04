@@ -1,7 +1,10 @@
 package com.example.orderportal.controller;
 
 import com.example.orderportal.entity.Cart;
+import com.example.orderportal.entity.extra.AddToCartRequest;
+import com.example.orderportal.repository.CartRepository;
 import com.example.orderportal.service.CartService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,8 +13,11 @@ public class CartController {
 
     private final CartService cartService;
 
-    public CartController(CartService cartService) {
+    private final CartRepository cartRepository;
+
+    public CartController(CartService cartService, CartRepository cartRepository) {
         this.cartService = cartService;
+        this.cartRepository = cartRepository;
     }
 
     @PostMapping("/add")
@@ -34,13 +40,20 @@ public class CartController {
         }
     }
 
-    @PostMapping("/update")
-    public Cart updateCart() {
-        try {
-            return cartService.UpdateCart();
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
+    @PutMapping("/{id}")
+    public ResponseEntity<Cart> updateCart(@PathVariable Long id,
+                                           @RequestParam int miktar,
+                                           @RequestParam String productName) {
+        Cart cart = cartRepository.findById(id).orElse(null);
+
+        if (cart != null) {
+            cart.setMiktar(miktar);
+            cart.setProductName(productName);
+            cartRepository.save(cart);
+
+            return ResponseEntity.ok(cart);
+        } else {
+            return ResponseEntity.notFound().build();
         }
     }
 }
