@@ -6,11 +6,13 @@ For Enoca JAVA CHALLENGE
 - Spring Boot Starter Web
 - Spring Data JPA
 - Maven
-- H2 Database
-- Swagger UI
+- H2 Database 
+- Swagger UI  http://localhost:8080/swagger-ui.html
 - Lombok
 
 ## API Kullanımı
+
+
 
 ![image](https://github.com/Theoguz/OrderPortal/assets/73759725/09ea61e9-86fe-4252-bf9e-b253068f6674)
 ## Ekran Görüntüleri
