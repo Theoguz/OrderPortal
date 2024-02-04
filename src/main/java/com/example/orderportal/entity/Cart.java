@@ -1,6 +1,7 @@
 package com.example.orderportal.entity;
 
-import jakarta.persistence.Entity;
+import com.example.orderportal.entity.base.BaseEntity;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,5 +15,10 @@ public class Cart extends BaseEntity {
 
     private int cartTotal;
     private int miktar;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Product product;
+
+    private String productName;
 
 }
