@@ -31,7 +31,4 @@ public class CustomerService {
         customerRepository.save(existingCustomer);
     }
 
-//    public Customer GetCustomer(String customerId) {
-//        return customerRepository.findById(Long.parseLong(customerId)).orElse(null);
-//    }
 }
