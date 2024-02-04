@@ -1,4 +1,4 @@
-package com.example.orderportal.entity;
+package com.example.orderportal.entity.baseentity;
 
 import jakarta.persistence.*;
 import org.hibernate.annotations.CreationTimestamp;

@@ -1,5 +1,7 @@
-package com.example.orderportal.entity;
+package com.example.orderportal.entity.exterentity;
 
+import com.example.orderportal.entity.Product;
+import com.example.orderportal.entity.baseentity.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
