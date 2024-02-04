@@ -5,6 +5,8 @@ import com.example.orderportal.entity.Customer;
 import com.example.orderportal.entity.Product;
 import com.example.orderportal.repository.CartRepository;
 import com.example.orderportal.repository.ProductRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -37,6 +39,8 @@ public class CartService {
     }
 
     public void AddProductToCart(Cart cart, Product product, Customer customer) {
+
+        final Logger logger = LoggerFactory.getLogger(CartService.class);
 
         if (cart != null && product != null && customer != null) {
 
@@ -80,19 +84,21 @@ public class CartService {
                         // Sepeti ve müşteriyi güncelle
                         cartRepository.save(customerCart);
                         customerService.updateCustomer(existingCustomer);
+                        logger.info("Product added to cart successfully. Product: {}, Quantity: {}",
+                                product.getName(), quantity);
 
 
                     } else {
-                        System.out.println("Stok yetersiz");
+                        logger.error("Stokta yeterli ürün yok");
                     }
                 } else {
-                    System.out.println("Ürün Bulunamadı yok veya girdiğiniz fiyatla aynı değil");
+                    logger.error("Ürün bulunamadı veya fiyatı değişti");
                 }
             } else {
-                System.out.println("Müşteri bulunamadı");
+                logger.error("Müşteri bulunamadı");
             }
         } else {
-            System.out.println("Sepet, ürün veya müşteri eksik");
+            logger.error("Sepet, ürün veya müşteri bulunamadı");
         }
     }
 }
