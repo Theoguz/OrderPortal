@@ -39,9 +39,10 @@ For Enoca JAVA CHALLENGE
   POST /api/cart/add
   
 ```
-![image](https://github.com/Theoguz/OrderPortal/assets/73759725/6b8e7921-cf84-495f-a2ba-dae555e96b89)
 ## Ek
 Kullanıcı adı, ürün fiyatı yanlış yazıldığında yada stoğumuz bittiğinde kodumuz ERROR loguyla detayını atmaktadır.
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/6b8e7921-cf84-495f-a2ba-dae555e96b89)
+
 
 ```http
   POST /api/order/place/{cartId}
