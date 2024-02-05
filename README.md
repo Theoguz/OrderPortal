@@ -13,18 +13,56 @@ For Enoca JAVA CHALLENGE
 ## API Kullanımı
 
 
+```http
+  GET /api/product/all
+   
+```
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/893af6e0-4016-4910-8c7b-d77d69156843)
 
-![image](https://github.com/Theoguz/OrderPortal/assets/73759725/09ea61e9-86fe-4252-bf9e-b253068f6674)
-## Ekran Görüntüleri
-![image](https://github.com/Theoguz/OrderPortal/assets/73759725/2d300aa4-a4a9-45cc-89ef-e568c756c87d)
 
-![image](https://github.com/Theoguz/OrderPortal/assets/73759725/88d59d51-08ff-44a5-8e27-e3cd1e8d688c)
+```http
+  PUT /api/product/update/Elma
+  
+```
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/4c63886d-77a0-4668-82ee-be4b1b29db16)
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/6e509bbf-4cb4-4dfc-b5d7-29f9b2458acf)
 
+
+```http
+  POST /api/customer/add
+  
+```
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/6271e088-45dc-4621-99b6-3ced1374b29a)
+
+
+```http
+  POST /api/cart/add
+  
+```
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/6b8e7921-cf84-495f-a2ba-dae555e96b89)
+## Ek
+Kullanıcı adı, ürün fiyatı yanlış yazıldığında yada stoğumuz bittiğinde kodumuz ERROR loguyla detayını atmaktadır.
+
+```http
+  POST /api/order/place/{cartId}
+  
+```
 ![image](https://github.com/Theoguz/OrderPortal/assets/73759725/871de8d8-5b8c-416e-8d6c-30bd547b8438)
 
+
+```http
+  GET /api/order/getAll
+   
+```
 ![image](https://github.com/Theoguz/OrderPortal/assets/73759725/18165e33-1817-4381-b2b9-3c0d95c73d9a)
 
-![image](https://github.com/Theoguz/OrderPortal/assets/73759725/df7705f7-b11d-4249-ac4b-19f3188493d2)
+
+## Swagger
+![image](https://github.com/Theoguz/OrderPortal/assets/73759725/09ea61e9-86fe-4252-bf9e-b253068f6674)
+
+
+
+
 
 
 
