@@ -23,13 +23,13 @@ public class CartService {
         this.customerService = customerService;
     }
 
-    public Cart GetCart(Long id) {
+    public Cart getCart(Long id) {
         return cartRepository.findById(id).orElse(null);
 
     }
 
 
-    public Cart EmptyCart() {
+    public Cart emptyCart() {
         Cart cart = cartRepository.findById(1L).orElse(null);
         cart.setMiktar(0);
         cart.setCartTotal(0);
@@ -37,7 +37,7 @@ public class CartService {
         return cart;
     }
 
-    public void AddProductToCart(Cart cart, Product product, Customer customer) {
+    public void addProductToCart(Cart cart, Product product, Customer customer) {
 
         final Logger logger = LoggerFactory.getLogger(CartService.class);
 
@@ -55,7 +55,7 @@ public class CartService {
                 }
 
                 // Ürün var mı kontrol et ve fiyat kontrolü yap
-                Product existingProduct = productService.GetProduct(product.getName());
+                Product existingProduct = productService.getProduct(product.getName());
 
                 if (existingProduct != null && existingProduct.getPrice() == product.getPrice()) {
                     // Stok kontrolü yap
@@ -100,4 +100,5 @@ public class CartService {
             logger.error("Sepet, ürün veya müşteri bulunamadı");
         }
     }
+
 }

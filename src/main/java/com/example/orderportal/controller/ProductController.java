@@ -32,7 +32,7 @@ public class ProductController {
 
     @GetMapping("/{name}")
     public ResponseEntity<?> findByName(@PathVariable String name) {
-        Product product = productService.GetProduct(name);
+        Product product = productService.getProduct(name);
         try {
             if (product == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ürün bulunamadı: " + name);
@@ -46,9 +46,9 @@ public class ProductController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<?> CreateProduct(@RequestBody Product product) {
+    public ResponseEntity<?> createProduct(@RequestBody Product product) {
         try {
-            productService.CreateProduct(product);
+            productService.createProduct(product);
             return ResponseEntity.ok("Product Created "+product.getName());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -56,9 +56,9 @@ public class ProductController {
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> DeleteProduct(@PathVariable Long id) {
+    public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
-            productService.DeleteProduct(id);
+            productService.deleteProduct(id);
             return ResponseEntity.ok("Product Deleted"+ id );
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -66,8 +66,8 @@ public class ProductController {
     }
 
     @PutMapping("/update/{name}")
-    public ResponseEntity<?> UpdateProduct(@PathVariable String name, @RequestBody Product product) {
-        productService.UpdateProduct(name, product);
+    public ResponseEntity<?> updateProduct(@PathVariable String name, @RequestBody Product product) {
+        productService.updateProduct(name, product);
         try {
             return ResponseEntity.ok("Product Updated "+name);
 

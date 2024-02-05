@@ -23,7 +23,7 @@ public class CartController {
     @PostMapping("/add")
     public ResponseEntity<?> addProductToCart(@RequestBody AddToCartRequest request) {
         try {
-            cartService.AddProductToCart(request.getCart(), request.getProduct(), request.getCustomer());
+            cartService.addProductToCart(request.getCart(), request.getProduct(), request.getCustomer());
              return ResponseEntity.ok("Product added to cart");
         } catch (Exception e) {
             e.printStackTrace();
@@ -34,7 +34,7 @@ public class CartController {
     @GetMapping("/get")
     public Cart getCart(@RequestParam Long id) {
         try {
-            return cartService.GetCart(id);
+            return cartService.getCart(id);
         } catch (Exception e) {
             e.printStackTrace();
             return null;

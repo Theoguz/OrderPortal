@@ -16,9 +16,9 @@ public class CustomerController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<?> AddCustomer(@RequestBody Customer customer) {
+    public ResponseEntity<?> addCustomer(@RequestBody Customer customer) {
         try {
-            customerService.AddCustomer(customer);
+            customerService.addCustomer(customer);
             return ResponseEntity.ok("Customer Created " + customer.getName());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -26,9 +26,9 @@ public class CustomerController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> GetAllCustomers() {
+    public ResponseEntity<?> getAllCustomers() {
         try {
-            return ResponseEntity.ok(customerService.GetAllCustomers());
+            return ResponseEntity.ok(customerService.getAllCustomers());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
         }

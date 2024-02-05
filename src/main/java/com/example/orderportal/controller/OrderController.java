@@ -20,7 +20,7 @@ public class OrderController {
     @PostMapping("/place/{id}")
     public ResponseEntity<?> placeOrder(@PathVariable Long id) {
         try {
-            orderService.PlaceOrder(id);
+            orderService.placeOrder(id);
             return ResponseEntity.ok("Sipariş alındı");
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Sipariş alınamadı");
@@ -30,7 +30,7 @@ public class OrderController {
     @GetMapping("/getAll")
     public ResponseEntity<?> getAllOrdersForCustomer() {
         try {
-            return ResponseEntity.ok(orderService.AllOrders());
+            return ResponseEntity.ok(orderService.allOrders());
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Siparişler alınamadı");
         }
@@ -39,7 +39,7 @@ public class OrderController {
     @GetMapping("/get/{orderCode}")
     public ResponseEntity<?> getOrderForCode(@PathVariable String orderCode) {
         try {
-            return ResponseEntity.ok(orderService.GetOrderForCode(orderCode));
+            return ResponseEntity.ok(orderService.getOrderForCode(orderCode));
         } catch (Exception e) {
             return ResponseEntity.badRequest().body("Sipariş alınamadı");
         }

@@ -18,7 +18,7 @@ public class ProductService {
         this.productRepository = productRepository;
     }
 
-    public Product GetProduct(String name) {
+    public Product getProduct(String name) {
         return productRepository.findByName(name).orElse(null);
     }
 
@@ -26,12 +26,12 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public void CreateProduct(Product product) {
+    public void createProduct(Product product) {
         productRepository.save(product);
 
     }
 
-    public void UpdateProduct(String name, Product product) {
+    public void updateProduct(String name, Product product) {
         Product product1 = productRepository.findByName(name).get();
         PriceHistory newPriceHistory = new PriceHistory();
         newPriceHistory.setPrice(product.getPrice());
@@ -45,7 +45,7 @@ public class ProductService {
     }
 
 
-    public void DeleteProduct(Long id) {
+    public void deleteProduct(Long id) {
         productRepository.deleteById(id);
 
     }

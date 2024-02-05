@@ -26,9 +26,9 @@ public class OrderService {
     }
 
 
-    public void PlaceOrder(Long id) {
+    public void placeOrder(Long id) {
         Customer customer = customerRepository.findById(id).orElse(null);
-        Cart cart = cartService.GetCart(id);
+        Cart cart = cartService.getCart(id);
         if (cart == null) {
             System.out.println("Sepetiniz boş");
         } else {
@@ -37,17 +37,17 @@ public class OrderService {
             order.setOrderTotal(cart.getCartTotal());
             order.setTotalPrice(cart.getCartTotal());
             orderRepository.save(order);
-            cartService.EmptyCart();
+            cartService.emptyCart();
         }
 
     }
 
-    public Order GetOrderForCode(String orderCode) {
+    public Order getOrderForCode(String orderCode) {
         return orderRepository.findByOrderCode(orderCode);
 
     }
 
-    public List<Order> AllOrders() {
+    public List<Order> allOrders() {
         return orderRepository.findAll();
     }
 

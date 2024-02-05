@@ -15,11 +15,11 @@ public class CustomerService {
         this.customerRepository = customerRepository;
     }
 
-    public void AddCustomer(Customer customer) {
+    public void addCustomer(Customer customer) {
         customerRepository.save(customer);
     }
 
-    public List<Customer> GetAllCustomers() {
+    public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
