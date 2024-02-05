@@ -6,7 +6,7 @@ For Enoca JAVA CHALLENGE
 - Spring Boot Starter Web
 - Spring Data JPA
 - Maven
-- H2 Database 
+- H2 Database http://localhost:8080/h2-console/  username=sa  
 - Swagger UI  http://localhost:8080/swagger-ui.html
 - Lombok
 
