@@ -1,4 +1,4 @@
-# OrderPortal
+# Order Portal
 
 For Enoca JAVA CHALLENGE
 ## Proje Bağımlılıkları
